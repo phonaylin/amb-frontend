@@ -1,0 +1,85 @@
+<!-- SECTION -->
+<!--===============================================================-->
+<div class="section-heading-page">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6">
+        <h1 class="heading-page text-center-xs">Bus Tickets</h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb text-right text-center-xs">
+          <li>
+            <a href="#">Bus</a>
+          </li>
+          <li class="active">Sectors</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="container">
+  <div class="row">
+    <!-- CONTENT COLUMN -->
+    <!--===============================================================-->
+	<div class="col-md-9">
+          <div class="row">
+            <div class="col-md-12">
+              <h3 class="title-v2">Please choose your bus route</h3>
+            </div>
+          </div>
+
+          <div class="row-code">
+            <table class="table">
+              <tbody>
+                <tr ng-repeat="route in busRoutes">
+                  <td>
+                    {{route.originPOI.title}} -> {{route.destPOI.title}}
+                  </td>
+                  <td>
+                    <div class="col-sm-offset-2 col-sm-10">
+                      <a href="#/routes/{{route.id}}" class="btn btn-primary">Book Ticket</a>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- <div class="row-code">
+            <div class="row row-tabs" role="tabpanel">
+              <div class="col-md-12">
+                <div class="tabs-top">
+                  <ul class="nav nav-tabs" role="tablist">
+                    <li ng-repeat="route in busRoutes" role="presentation" ng-class="{active: $first}" >
+                      <a href="#{{route.originCity.name}}" aria-controls="{{route.originCity.name}}" role="tab" data-toggle="tab">{{route.originCity.name}}</a>
+                    </li>
+                  </ul>
+                  <div class="tab-content">
+                    <div ng-repeat="route in busRoutes" role="tabpanel" class="tab-pane fade in" ng-class="{active: $first}" id="{{route.originCity.name}}">
+                      <table class="table">
+						  <tbody>
+						    <tr ng-repeat="dest in route.routes">
+						      <td>
+						      	{{dest.origin.name}} -> {{dest.destination.name}}
+						      </td>
+						      <td>
+						      	<div class="col-sm-offset-2 col-sm-10">
+						          <a href="#/routes/{{dest.id}}" class="btn btn-primary">Book Ticket</a>
+
+						        </div>
+						      </td>
+						    </tr>
+						  </tbody>
+						</table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> -->
+
+        </div>
+    </div>
+</div>

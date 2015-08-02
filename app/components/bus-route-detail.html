@@ -1,0 +1,74 @@
+<!-- SECTION -->
+<!--===============================================================-->
+<div class="section-heading-page">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-6">
+				<h1 class="heading-page text-center-xs">Bus Tickets From YGN To
+					{{routeId}}</h1>
+			</div>
+			<div class="col-sm-6">
+				<ol class="breadcrumb text-right text-center-xs">
+					<li><a href="#">Bus</a></li>
+					<li class="active">Route Detail</li>
+				</ol>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div class="container">
+	<div class="row">
+		<!-- CONTENT COLUMN -->
+		<!-- Route detail -->
+		<div class="col-md-9">
+
+			<div class="row">
+				<div class="col-md-12">
+					<h3 class="title-v2">Choose your ticket</h3>
+				</div>
+			</div>
+
+			<div class="row-code">
+				<div class="row row-tabs" role="tabpanel">
+					<div class="col-md-12">
+						<div class="tabs-top">
+							<div class="tab-content">
+								<table class="table">
+									<thead>
+										<tr>
+											<th>Day</th>
+											<th>Departure Time</th>
+											<th>Bus Type</th>
+											<th>Price (USD)</th>
+											<th>Quantity</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="busSchedule in busScheduleList">
+											<td>{{busSchedule.dayOfWeek}}</td>
+											<td>{{busSchedule.departureTime | date : 'shortTime'}}</td>
+											<td>{{busSchedule.busType}}</td>
+											<td>{{busSchedule.price}}</td>
+											<td>
+												<div class="col-sm-5">
+													<select>
+														<option>0</option>
+														<option>1</option>
+														<option>2</option>
+													</select>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

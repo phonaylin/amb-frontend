@@ -1,0 +1,42 @@
+
+<div class="container">
+	<div class="row">
+		<!-- CONTENT COLUMN -->
+		<!-- Route detail -->
+		<div class="col-md-9">
+
+			<div class="row">
+				<div class="col-md-12">
+					<h3 class="title-v2">Search</h3>
+				</div>
+			</div>
+
+			<div class="row">
+	        <div class="col-md-6">
+						<p class="input-group">
+						  From :
+							<input type="text" ng-model="originPOI" typeahead="poi.id as poi.title for poi in poiList | filter:$viewValue | limitTo:8" class="form-control" ng-required="true">
+						</p>
+	        </div>
+	        <div class="col-md-6">
+						<p class="input-group">
+							To :
+							<input type="text" ng-model="destPOI" typeahead="poi.id as poi.title for poi in poiList | filter:{id:'!originPOI'} | limitTo:8" class="form-control" ng-required="true">
+						</p>
+	        </div>
+					<div class="col-md-6">
+						<p class="input-group">
+              <input type="text" class="form-control" datepicker-popup="{{dateFormat}}" ng-model="dt" is-open="opened" min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+              </span>
+            </p>
+	        </div>
+	    </div>
+
+			<div class="row-code">
+				<button type="button" class="btn btn-default">Search</button>
+			</div>
+		</div>
+	</div>
+</div>
