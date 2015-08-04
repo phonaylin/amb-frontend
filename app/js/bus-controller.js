@@ -2,6 +2,28 @@
 
 var ambBusApp = angular.module('ambBusApp', ['ngRoute', 'ambApp', 'ui.bootstrap', 'busControllers']);
 
+ambBusApp.factory('ambBackend', function ($http) {
+      var data = {};
+      var url = "http://localhost:8080/bus/";
+      var promise = $http.get(url + 'getUser?u=3', { cache: true }).then(function (response) {
+                data = response.data;
+            });
+      return data;
+    });
+
+ambBusApp.factory('busOrder', ['$http', function busOrderFactory($http) {
+  var busOrder = {};
+  busOrder.offer = {};
+  busOrder.quantity = null;
+  busOrder.poiFromId = 2;
+  busOrder.poiToId = null;
+  busOrder.travelDt = null;
+  busOrder.state = "draft";
+
+  return busOrder;
+
+}]);
+
 //configure our routes
 ambBusApp.config(['$routeProvider', function($routeProvider) {
     $routeProvider
@@ -22,6 +44,11 @@ ambBusApp.config(['$routeProvider', function($routeProvider) {
             controller  : 'BusRouteDetailCtrl'
         })
 
+        .when('/order', {
+            templateUrl : 'components/bus-order.html',
+            controller  : 'BusOrderCtrl'
+        })
+
         .otherwise({
         	redirectTo: '/'
         });
@@ -29,11 +56,36 @@ ambBusApp.config(['$routeProvider', function($routeProvider) {
 
 var busControllers = angular.module('busControllers', []);
 
-busControllers.controller('BusSearchCtrl', ['$scope', '$http',
-  function ($scope, $http) {
+busControllers.controller('BusOrderCtrl', ['$scope', '$http', 'busOrder',
+  function ($scope, $http, busOrder) {
+    $scope.offer = busOrder.offer;
+  }]);
+
+busControllers.controller('BusSearchCtrl', ['$scope', '$http', '$window', 'busOrder',
+  function ($scope, $http, $window, busOrder) {
+    $scope.fromId = null;
+    $scope.toId = null;
+    $scope.quantity = null;
+    $scope.busOffers = {};
+
+    $scope.searchOffers = function() {
+      $http.get('http://localhost:8080/bus/offers?from='+ $scope.fromId +'&to='+ $scope.toId +'&date=2015-08-02').success(function(data) {
+        $scope.busOffers = data;
+      })
+    };
+
+    $scope.chooseOffer =  function(offer) {
+      busOrder.offer = offer;
+      console.log("chosen offer is " + busOrder.offer.id);
+    };
 
     $scope.dateFormats = ['dd-MMMM-yyyy', 'yyyy-MM-dd', 'dd.MM.yyyy', 'shortDate'];
     $scope.dateFormat = $scope.dateFormats[1];
+
+    $scope.cities = $window.cities;
+    console.log($scope.cities);
+    
+
 
     $scope.poiList = [
       {
@@ -56,8 +108,8 @@ busControllers.controller('BusSearchCtrl', ['$scope', '$http',
         "id": 3,
         "createdDate": null,
         "modifiedDate": null,
-        "title": "Bagan",
-        "description": "Bagan",
+        "title": "Inle",
+        "description": "Inle",
         "map": null
       }
     ];

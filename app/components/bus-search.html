@@ -15,17 +15,24 @@
 	        <div class="col-md-6">
 						<p class="input-group">
 						  From :
-							<input type="text" ng-model="originPOI" typeahead="poi.id as poi.title for poi in poiList | filter:$viewValue | limitTo:8" class="form-control" ng-required="true">
+							<select ng-options="k as v for (k, v) in cities" ng-model="fromId"></select>
 						</p>
 	        </div>
 	        <div class="col-md-6">
 						<p class="input-group">
 							To :
-							<input type="text" ng-model="destPOI" typeahead="poi.id as poi.title for poi in poiList | filter:{id:'!originPOI'} | limitTo:8" class="form-control" ng-required="true">
+							<select ng-options="k as v for (k, v) in cities" ng-model="toId"></select>
 						</p>
 	        </div>
 					<div class="col-md-6">
 						<p class="input-group">
+							Seats :
+							<input type="text" ng-model="quantity" class="form-control" ng-required="true">
+						</p>
+	        </div>
+					<div class="col-md-6">
+						<p class="input-group">
+							Date of travel :
               <input type="text" class="form-control" datepicker-popup="{{dateFormat}}" ng-model="dt" is-open="opened" min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
               <span class="input-group-btn">
                 <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
@@ -35,8 +42,58 @@
 	    </div>
 
 			<div class="row-code">
-				<button type="button" class="btn btn-default">Search</button>
+				<button type="button" ng-click="searchOffers()" class="btn btn-primary">Search</a>
+			</div>
+
+		</div>
+	</div>
+	<hr>
+
+	<div class="row">
+		<!-- CONTENT COLUMN -->
+		<!-- Route detail -->
+		<div class="col-md-9">
+
+			<div class="row">
+				<div class="col-md-12">
+					<h3 class="title-v2">Choose your ticket</h3>
+				</div>
+			</div>
+
+			<div class="row-code">
+				<div class="row row-tabs" role="tabpanel">
+					<div class="col-md-12">
+						<div class="tabs-top">
+							<div class="tab-content">
+								<table class="table">
+									<thead>
+										<tr>
+											<th>Departure Time</th>
+											<th>Bus Type</th>
+											<th>Price (USD)</th>
+											<th></th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="offer in busOffers">
+											<td>{{offer.departureTime | date : 'shortTime'}}</td>
+											<td>{{offer.busType}}</td>
+											<td>{{offer.fare}}</td>
+											<td>
+												<div class="col-sm-offset-2 col-sm-10">
+		                      <a href="#/order" ng-click="chooseOffer(offer)" class="btn btn-primary">Choose</a>
+		                    </div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
+
 </div>
